@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package group;
+
+message GetDeviceGroupDeviceListRequest {
+    repeated string deviceGroupIdList = 1;
+	string productKey = 2;
+	bool isCheckChildGroup = 3;
+	int64 currentPage = 4;
+	int64 pageSize = 5;
+}
+
+
+message GetDeviceGroupDeviceListReply{
+    int64 code = 1;
+    string message = 2;
+	repeated ProductKeyDeviceName productKeyDeviceNameList = 3;
+	int64 currentPage = 4;
+	int64 pageSize = 5;
+}
+
+message ProductKeyDeviceName {
+	string productKey = 1;
+	string deviceName = 2;
+}
+
+service GetDeviceList{
+    rpc GetDeviceGroupDeviceList(GetDeviceGroupDeviceListRequest) returns (GetDeviceGroupDeviceListReply){}
+}
+
+message CheckDeviceWhetherInDeviceGroupRequest {
+	string productKey = 1;
+	string deviceName = 2;
+	repeated string deviceGroupIdList = 3;
+	bool isCheckChildGroup = 4;
+}
+
+message CheckDeviceWhetherInDeviceGroupReply {
+    int64 code = 1;
+    string message = 2;
+	bool isInDeviceGroup = 3;
+	repeated string deviceGroupIdList = 4;
+}
+
+service CheckDeviceInDeviceGroup{
+    rpc CheckDeviceWhetherInDeviceGroup(CheckDeviceWhetherInDeviceGroupRequest) returns (CheckDeviceWhetherInDeviceGroupReply){}
+}

@@ -1,0 +1,4 @@
+*.xml
+*.log
+*.apk
+.idea/

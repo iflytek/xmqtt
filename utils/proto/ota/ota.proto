@@ -1,0 +1,55 @@
+syntax = "proto3";
+package ota;
+
+// The request message of otaserver to otaDistributer
+message Params {
+    int64 size = 1;
+    string url = 2;
+    string md5 = 3;
+    string sha256 = 4;
+    string version = 5;
+}
+message DistributeData {
+    string pKey = 1;
+    string dName = 2;
+    Params params = 3;
+}
+
+message UpgradeRequest{
+    repeated DistributeData distributeData = 1;
+}
+
+// The response message of otaDistributer to otaserver
+message UpgradeReply {
+    int64 status = 1;
+    string err = 2;
+}
+
+service OTA{
+    rpc UpgradeDistribute(UpgradeRequest) returns (UpgradeReply){}
+}
+
+
+message Data{
+    string identifer  = 1;
+    Params params = 2;
+}
+
+message PushDownRequest {
+    string mid = 1;
+    string version = 2;
+    string pKey = 3;
+    string dName= 4;
+    string obj = 5;
+    string action = 6;
+    Data data = 7;
+}
+
+message PushDownReply{
+    int64 status = 1;
+    string err = 2;
+}
+
+service DistributePushDown{
+    rpc PushDown(PushDownRequest) returns (PushDownReply){}
+}

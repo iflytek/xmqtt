@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+//option java_multiple_files = true;
+//option java_package = "io.grpc.examples.helloworld";
+//option java_outer_classname = "HelloWorldProto";
+
+package device;
+
+service Auth {
+		rpc Auth (AuthRequest) returns (AuthReply) {}
+	    rpc Login (LoginRequest) returns (LoginReply) {}
+	    rpc Logout (LogoutRequest) returns (LogoutReply) {}
+}
+
+service Device {
+		rpc Push(PushRequest) returns (PushReply) {}
+}
+
+service Event {
+		rpc Upload(UploadRequest) returns (UploadReply) {}
+		rpc PostBack(PostRequest) returns (PostReply) {}
+}
+
+// The request message of xmqtt to authServer:Auth
+message AuthRequest{
+      string clientAddr = 1;
+      string clientID = 2;  // mqttclientId
+	  string productKey = 3;
+	  string deviceName = 4;
+	  string password = 5; // mqttpassword
+}
+
+// The response message of xmqtt to authServer:Auth
+message AuthReply{
+	  int64 ret = 1;
+	  string status = 2;
+}
+
+// The request message of xmqtt to authServer:Login
+message LoginRequest{
+      string clientAddr = 1;
+	  string productKey = 2;
+	  string deviceName = 3;
+	  string nodeID = 4;  // mqtt Node ID, ip:port
+	  
+}
+
+// The response message of xmqtt to authServer:Login
+message LoginReply{
+	  int64 status = 1;
+	  string err = 2;
+}
+
+// The request message of xmqtt to authServer:Logout
+message LogoutRequest{
+	  string clientAddr = 1;
+	  string productKey = 2;
+	  string devicenName = 3;
+	  string nodeID = 4;  // mqtt Node ID, ip:port
+}
+
+// The response message of xmqtt to authServer:Logout
+message LogoutReply{
+	  int64 status = 1;
+	  string err = 2;
+}
+
+// The request message of PushServer to xmqtt:Push
+message PushRequest {
+	string productKey = 1;
+	string deviceName = 2;
+	string topic = 3;
+	bytes payload = 4;  
+}
+
+// The response message of PushServer to xmqtt:Push
+message PushReply {
+	int64 status = 1;
+	string err = 2;
+}
+
+// The request message of xmqtt to uploadServer:Upload
+message UploadRequest {
+	string productKey = 1;
+	string deviceName = 2;
+	string topic = 3;
+	int64 timestamp = 4;
+	bytes payload = 5;  
+}
+
+// The response message of xmqtt to uploadServer:Upload
+message UploadReply {
+	int64 status = 1;
+	string err = 2;
+}
+
+// The request message of xmqtt to uploadServer:PostBack
+message PostRequest {
+	string productKey = 1;
+	string deviceName = 2;
+	string topic = 3;
+	int64 timestamp = 4;
+	bytes payload = 5;
+}
+
+// The response message of xmqtt to uploadServer:PostBack
+message PostReply {
+	int64 status = 1;
+	string err = 2;
+}

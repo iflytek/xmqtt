@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package httpdns;
+
+message GetSipResolverRequest {
+    string version = 1;
+    string operator = 2;
+    string nettype = 3;
+    string cver= 4;
+    string svc = 5;
+	string clientip = 6;
+	string pkey = 7;
+	string dname = 8;
+}
+
+message GetSipResolverReply{
+    int64 err = 1;
+    string status = 2;
+	bytes result = 3;
+}
+
+service HttpDNS{
+    rpc GetSipResolver(GetSipResolverRequest) returns (GetSipResolverReply){}
+}

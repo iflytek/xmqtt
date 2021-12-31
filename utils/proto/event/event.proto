@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package eventpushdown;
+
+message Data{
+    int64 ret  = 1;
+    map<string, string> data = 2;
+}
+
+message PushDownRequest {
+    string mid = 1;
+    string version = 2;
+    string pKey = 3;
+    string dName= 4;
+    string obj = 5;
+    string action = 6;
+    Data data = 7;
+}
+
+message PushDownReply{
+    int64 status = 1;
+    string err = 2;
+}
+
+service EventPushDown{
+    rpc PushDown(PushDownRequest) returns (PushDownReply){}
+}

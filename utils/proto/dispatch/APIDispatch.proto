@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package dispatch;
+
+message Request{
+    string pKey = 1;
+    string dName = 2;
+    string mid = 3;
+    string action = 4;
+    int64 timestamp = 5;
+    bytes data = 6;
+}
+message Response {
+    bytes resp = 1;
+}
+service APIDispatch {
+    rpc process(Request) returns (Response) {}
+    rpc asyncProcess(Request) returns (Response) {}
+}

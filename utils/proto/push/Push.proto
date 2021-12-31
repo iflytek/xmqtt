@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package push;
+message Request {
+    bytes input = 1;
+}
+message Reply{
+    int64 ret = 1;
+    string err = 2;
+}
+
+service DispatchPush{
+    rpc Process(Request) returns(Reply){};
+}

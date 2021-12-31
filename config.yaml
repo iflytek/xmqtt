@@ -1,0 +1,14 @@
+log:
+  path: ./xmqtt.log
+  level: debug
+mqtt:
+  keepalive: 60
+  connectTimeout: 5
+  ackTimeout: 5
+timeWheel:
+  bucketNum: 360
+  interval: 200
+server:
+  netCard: eth0
+  Prof: false
+
